@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
 import type { Product } from '@/lib/types';
+import { asset } from '@/lib/asset';
 import ProductImagePlaceholder from './ProductImagePlaceholder';
 
 interface Props {
@@ -32,12 +33,22 @@ export default function ProductCard({ product, compact = false }: Props) {
     <article className="group flex flex-col bg-white rounded-2xl overflow-hidden transition-shadow duration-300 hover:shadow-[0_8px_32px_-4px_rgba(61,46,40,0.14)]" style={{ boxShadow: '0 2px 20px -4px rgba(61,46,40,0.08)' }}>
       {/* Image area */}
       <Link href={`/produkte`} className="block overflow-hidden">
-        <ProductImagePlaceholder
-          category={product.category}
-          color={product.placeholderColor}
-          accent={product.placeholderAccent}
-          className={`w-full transition-transform duration-500 group-hover:scale-105 ${compact ? 'h-44' : 'h-56'}`}
-        />
+        {product.image ? (
+          <div className={`relative w-full overflow-hidden transition-transform duration-500 group-hover:scale-105 ${compact ? 'h-44' : 'h-56'}`}>
+            <img
+              src={asset(product.image)}
+              alt={product.name}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        ) : (
+          <ProductImagePlaceholder
+            category={product.category}
+            color={product.placeholderColor}
+            accent={product.placeholderAccent}
+            className={`w-full transition-transform duration-500 group-hover:scale-105 ${compact ? 'h-44' : 'h-56'}`}
+          />
+        )}
       </Link>
 
       {/* Content */}

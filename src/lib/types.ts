@@ -13,6 +13,7 @@ export interface Product {
   placeholderColor: string;
   placeholderAccent: string;
   badge?: string;
+  image?: string;
 }
 
 export interface CartItem {

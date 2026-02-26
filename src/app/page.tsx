@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { featuredProducts } from '@/data/products';
+import { asset } from '@/lib/asset';
 import ProductCard from '@/components/ProductCard';
 
 export default function HomePage() {
@@ -119,10 +120,10 @@ function HeroSection() {
 
 function HeroVisual() {
   const cards = [
-    { color: '#A8CDB8', accent: '#5A9070', label: 'Pullover', rotate: '-6deg', top: '0%', left: '15%', zIndex: 1 },
-    { color: '#E8B4B8', accent: '#C47A82', label: 'Weste', rotate: '4deg', top: '20%', left: '40%', zIndex: 2 },
-    { color: '#DEBA94', accent: '#A07040', label: 'Hose', rotate: '-3deg', top: '45%', left: '5%', zIndex: 1 },
-    { color: '#F5D8DA', accent: '#C47A82', label: 'Accessoire', rotate: '7deg', top: '55%', left: '50%', zIndex: 3 },
+    { image: '/images/products/product-01.jpg', label: 'Pullover', rotate: '-6deg', top: '0%', left: '15%', zIndex: 1 },
+    { image: '/images/products/product-02.jpg', label: 'Weste', rotate: '4deg', top: '20%', left: '40%', zIndex: 2 },
+    { image: '/images/products/product-04.jpg', label: 'Set', rotate: '-3deg', top: '45%', left: '5%', zIndex: 1 },
+    { image: '/images/products/product-05.jpg', label: 'Accessoire', rotate: '7deg', top: '55%', left: '50%', zIndex: 3 },
   ];
 
   return (
@@ -137,25 +138,21 @@ function HeroVisual() {
       {cards.map((card) => (
         <div
           key={card.label}
-          className="absolute w-32 h-36 rounded-2xl shadow-lg flex flex-col overflow-hidden"
+          className="absolute w-32 h-36 rounded-2xl shadow-lg overflow-hidden"
           style={{
-            backgroundColor: card.color,
             transform: `rotate(${card.rotate})`,
             top: card.top,
             left: card.left,
             zIndex: card.zIndex,
           }}
         >
-          <div className="flex-1 flex items-center justify-center">
-            <div className="w-10 h-10 rounded-full opacity-30" style={{ backgroundColor: card.accent }} />
-          </div>
-          <div className="px-3 pb-3">
-            <span
-              className="text-xs font-body font-medium"
-              style={{ color: card.accent }}
-            >
-              {card.label}
-            </span>
+          <img
+            src={asset(card.image)}
+            alt={card.label}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute bottom-0 left-0 right-0 px-3 py-2 bg-linear-to-t from-black/40 to-transparent">
+            <span className="text-xs font-body font-medium text-white">{card.label}</span>
           </div>
         </div>
       ))}
@@ -293,40 +290,16 @@ function AboutTeaser() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Visual */}
           <div className="relative order-2 lg:order-1">
-            <div className="relative rounded-3xl overflow-hidden bg-mint-pale aspect-4/3 flex items-center justify-center">
-              {/* Botanical decoration */}
-              <svg
-                viewBox="0 0 400 300"
-                className="absolute inset-0 w-full h-full opacity-30"
-                aria-hidden="true"
-              >
-                <circle cx="350" cy="50" r="120" fill="#7BAF8E" />
-                <circle cx="60" cy="240" r="90" fill="#E8B4B8" />
-                <ellipse cx="200" cy="150" rx="30" ry="100" fill="#7BAF8E" opacity="0.5" transform="rotate(20 200 150)" />
-                <ellipse cx="280" cy="200" rx="20" ry="70" fill="#C49A6C" opacity="0.4" transform="rotate(-15 280 200)" />
-              </svg>
-              {/* Center content */}
-              <div className="relative z-10 flex flex-col items-center gap-4 text-center p-8">
-                <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width={80} height={80}>
-                  <circle cx="60" cy="60" r="57" fill="none" stroke="#7BAF8E" strokeWidth="2" />
-                  <circle cx="60" cy="60" r="50" fill="none" stroke="#7BAF8E" strokeWidth="0.5" strokeDasharray="2 3" />
-                  <g transform="translate(60, 24)" fill="#7BAF8E">
-                    <ellipse cx="0" cy="-6" rx="2.5" ry="7" />
-                    <ellipse cx="-5" cy="-3" rx="2" ry="5.5" transform="rotate(-35 -5 -3)" opacity="0.7" />
-                    <ellipse cx="5" cy="-3" rx="2" ry="5.5" transform="rotate(35 5 -3)" opacity="0.7" />
-                    <line x1="0" y1="2" x2="0" y2="-14" stroke="#7BAF8E" strokeWidth="0.8" />
-                  </g>
-                  <text x="60" y="56" textAnchor="middle" fontFamily="'Cormorant Garamond', Georgia, serif" fontStyle="italic" fontWeight="500" fontSize="20" fill="#7BAF8E" letterSpacing="2">mint</text>
-                  <text x="60" y="70" textAnchor="middle" fontFamily="'Cormorant Garamond', Georgia, serif" fontStyle="italic" fontWeight="300" fontSize="12" fill="#7BAF8E">&amp;</text>
-                  <text x="60" y="86" textAnchor="middle" fontFamily="'Cormorant Garamond', Georgia, serif" fontStyle="italic" fontWeight="500" fontSize="20" fill="#7BAF8E" letterSpacing="2">elli</text>
-                  <g transform="translate(60, 96)" stroke="#7BAF8E" strokeWidth="0.8" fill="none">
-                    <line x1="-12" y1="0" x2="-4" y2="0" />
-                    <circle cx="0" cy="0" r="1.2" fill="#7BAF8E" stroke="none" />
-                    <line x1="4" y1="0" x2="12" y2="0" />
-                  </g>
-                </svg>
+            <div className="relative rounded-3xl overflow-hidden aspect-4/3">
+              <img
+                src={asset('/images/products/product-09.jpg')}
+                alt="Handgemachte Kinderkleidung von mint & elli"
+                className="w-full h-full object-cover"
+              />
+              {/* Overlay with quote */}
+              <div className="absolute inset-0 bg-linear-to-t from-bark/60 via-transparent to-transparent flex items-end p-8">
                 <blockquote
-                  className="text-xl text-mint-dark max-w-xs"
+                  className="text-xl text-cream"
                   style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontStyle: 'italic', fontWeight: 500 }}
                 >
                   &ldquo;Kuschelig, individuell &amp; einfach zum Verlieben!&rdquo;
