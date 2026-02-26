@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
 import type { CartItem } from '@/lib/types';
+import { asset } from '@/lib/asset';
 import ProductImagePlaceholder from '@/components/ProductImagePlaceholder';
 
 export default function WarenkorbPage() {
@@ -79,12 +80,20 @@ function CartItemRow({
   return (
     <div className="flex gap-4 bg-white rounded-2xl p-4 sm:p-5" style={{ boxShadow: '0 2px 20px -4px rgba(61,46,40,0.06)' }}>
       {/* Image */}
-      <ProductImagePlaceholder
-        category={item.product.category}
-        color={item.product.placeholderColor}
-        accent={item.product.placeholderAccent}
-        className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl shrink-0"
-      />
+      {item.product.image ? (
+        <img
+          src={asset(item.product.image)}
+          alt={item.product.name}
+          className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl shrink-0 object-cover"
+        />
+      ) : (
+        <ProductImagePlaceholder
+          category={item.product.category}
+          color={item.product.placeholderColor}
+          accent={item.product.placeholderAccent}
+          className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl shrink-0"
+        />
+      )}
 
       {/* Info */}
       <div className="flex flex-col flex-1 gap-1 min-w-0">
